@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Companies</title>
+    <style>
+        body {
+            background-image: url('https://p4.wallpaperbetter.com/wallpaper/398/544/38/galaxy-4k-wallpaper-preview.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+    </style>
+</head>
+<body>
+<br>
+<br>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous">
+<table class="table table-dark table-striped" ><thead>
+<tr>
+    <th scope="col">#</th>
+    <th scope="col">Company</th>
+    <th scope="col">Country</th>
+    <th scope="col">Delete</th>
+    <th scope="col">Update</th>
+    <th scope="col">Course</th>
+</tr>
+</thead>
+    <tbody th:each="comp:${companyLists}">
+    <tr>
+        <th scope="row" th:text="${comp.getCompanyId()}"></th>
+         <td th:text="${comp.getCompanyName()}"></td>
+        <td th:text="${comp.getLocatedCountry()}"></td>
+        <td>
+            <form th:method="DELETE" th:action="@{/companies/{id} (id=${comp.getCompanyId()})}">
+                <input type="submit" class="btn btn-outline-primary" th:value="Delete">
+            </form>
+        </td>
+        <td>
+            <a class="btn btn-outline-primary" href="#offcanvasExample" role="button"
+               th:href="@{/companies/{id}/edit (id=${comp.getCompanyId()})}">Update</a>
+        </td>
+        <td>
+            <a th:href="@{/courses/getAllCourses/{comId}(comId=${comp.companyId})}">
+                <button type="button" style="background: darkslateblue; height: 40px; width: 80px" >Course</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+<br/>
+<input style= "margin:auto; font-size:20px;" type="submit" value="Add company"
+       onclick="window.location.href = 'new'">
+</body>
+</html>
